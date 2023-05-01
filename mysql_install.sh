@@ -1,22 +1,27 @@
+
+echo "=> INSTALL AND CONFIG MYSQL"
+
 DB_NAME="wp"
 DB_USER="user"
 
-#sudo apt update
-sudo apt install  -y \ 
-#nginx \ 
-mariadb-server mariadb-client \ 
+sudo apt purge --auto-remove mariadb-server
+sudo apt update
+sudo apt install  -y mariadb-server mariadb-client
+
 #php-fpm php-mysql
 
 # include file with secrets
 source secret.sh
 
-# SECURE INSTALLTION
+# SECURE INSTALLATION
 # mysql secure installation contains important steps to secure prod projects
 # but  is interactive so need to automate with use of a heredoc
 # set root pswd, delete anonymous users, no distant connection for root,  delete test db
 # set a password for root is an additionnal security, the password wont be used in most case as connection is set to unix_socket no native_password
+  #UPDATE mysql.user SET Password=PASSWORD('${DB_ROOT_PSWD}') WHERE User='root';
+echo "=> Secure installation"
 sudo mysql --user=root <<EOF
-  UPDATE mysql.user SET Password=PASSWORD('${DB_ROOT_PSWD}') WHERE User='root';
+  SET PASSWORD FOR 'root'@'localhost' = PASSWORD('DB_ROOT_PSWD');
   DELETE FROM mysql.user WHERE User='';
   DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
   DROP DATABASE IF EXISTS test;
@@ -27,6 +32,7 @@ EOF
 # For security purpose do other user than root for db gestion
 # As remote access is needed : or add ips that need access as host to the db_user, if unknown add % instead(means all addresses in sql syntax)
 # host % would means you can access this database server from any host, this is a risk
+echo "=> Create user and db"
 sudo mysql --user=root <<EOF
   CREATE DATABASE ${DB_NAME} DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
   CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_WP_PSWD}';
