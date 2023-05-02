@@ -40,4 +40,4 @@ set MYSQL_USR=aurelie
 
 ::NGINX
 scp machines_deps.sh nginx_install.sh %NGINX_USR%@%NGINX_SERV_IP%:/home/%NGINX_USR%/
-ssh -t %NGINX_USR%@%NGINX_SERV_IP% "dos2unix nginx_install.sh machines_deps.sh; chmod 755  ./nginx_install.sh ./machines_deps.sh ; ./machines_deps.sh ; ./nginx_install.sh"
+ssh -t %NGINX_USR%@%NGINX_SERV_IP% "dos2unix nginx_install.sh machines_deps.sh; chmod 755  ./nginx_install.sh ./machines_deps.sh ; ./nginx_install.sh"
