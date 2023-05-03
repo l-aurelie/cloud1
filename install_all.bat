@@ -35,9 +35,9 @@ set MYSQL_USR=aurelie
 ::ssh -t %MYSQL_USR%@%MYSQL_SERV_IP% "dos2unix mysql_install.sh machines_deps.sh secret.sh; chmod 755 ./mysql_install.sh ./machines_deps.sh; ./mysql_install.sh"
 
 ::PHP
-::scp remote_mysql.sh machines_deps.sh %PHP_USR%@%PHP_SERV_IP%:/home/%PHP_USR%/
-::ssh -t %PHP_USR%@%PHP_SERV_IP% "dos2unix remote_mysql.sh machines_deps.sh; chmod 755  ./remote_mysql.sh ./machines_deps.sh ; ./remote_mysql.sh"
+scp remote_mysql.sh machines_deps.sh %PHP_USR%@%PHP_SERV_IP%:/home/%PHP_USR%/
+ssh -t %PHP_USR%@%PHP_SERV_IP% "dos2unix remote_mysql.sh machines_deps.sh; chmod 755  ./remote_mysql.sh ./machines_deps.sh ; ./remote_mysql.sh"
 
 ::NGINX
-scp machines_deps.sh nginx_install.sh %NGINX_USR%@%NGINX_SERV_IP%:/home/%NGINX_USR%/
-ssh -t %NGINX_USR%@%NGINX_SERV_IP% "dos2unix nginx_install.sh machines_deps.sh; chmod 755  ./nginx_install.sh ./machines_deps.sh ; ./nginx_install.sh"
+::scp machines_deps.sh nginx_install.sh %NGINX_USR%@%NGINX_SERV_IP%:/home/%NGINX_USR%/
+::ssh -t %NGINX_USR%@%NGINX_SERV_IP% "dos2unix nginx_install.sh machines_deps.sh; chmod 755  ./nginx_install.sh ./machines_deps.sh ; ./nginx_install.sh"
