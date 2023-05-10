@@ -1,9 +1,9 @@
 echo "=> INSTALL NGINX"
 
 DOMAIN_NAME=myhomeserver
-PHP_SERV_IP=192.168.1.27
+PHP_SERV_IP=192.168.1.34
 
-#sudo apt install -y nginx
+sudo apt install -y nginx
 sudo ufw app list
 
 sudo ufw allow 'Nginx HTTP'
@@ -27,7 +27,7 @@ sudo ufw status
 # EOF
 
 # --Dynamically create server conf file
-# /!\Be carefull if you need var like nginx one, they will be interpreted, use another way than heredoc (if has bugs check your config file is has you want in /etc/nginx/sites-available)
+# /!\Be carefull if you need var like nginx's one, they will be interpreted, use another way than heredoc (if has bugs check your config file is has you want in /etc/nginx/sites-available)
 echo "-> Create server conf for $DOMAIN_NAME"
 sudo touch  /etc/nginx/sites-available/$DOMAIN_NAME
 sudo chown -R $USER:$USER /etc/nginx/sites-available/$DOMAIN_NAME
@@ -54,7 +54,6 @@ server {
     }
 }
 EOF
-
 # I added those in location blocs to have debug message or var : access it in response header
 #add_header X-debug-message "A php file was used" always;
 #add_header X-debug-document-root "$document_root" always;
